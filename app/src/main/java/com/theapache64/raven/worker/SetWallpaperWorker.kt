@@ -1,5 +1,6 @@
 package com.theapache64.raven.worker
 
+import android.app.WallpaperManager
 import android.content.Context
 import androidx.hilt.Assisted
 import androidx.hilt.work.WorkerInject
@@ -11,8 +12,6 @@ import com.theapache64.raven.utils.QuoteUtils
 import com.theapache64.raven.utils.calladapter.flow.Resource
 import kotlinx.coroutines.flow.collect
 import timber.log.Timber
-import java.text.SimpleDateFormat
-import java.util.*
 
 /**
  * Created by theapache64 : Sep 10 Thu,2020 @ 08:46
@@ -43,6 +42,8 @@ class SetWallpaperWorker @WorkerInject constructor(
                         is Resource.Success -> {
                             Timber.d("doWork: Quote has loaded: $it")
                             val bitmap = DrawUtils.draw(context, it.data.quote)
+                            WallpaperManager.getInstance(context)
+                                .setBitmap(bitmap)
                         }
                         is Resource.Error -> {
                             Timber.d("doWork: Quote failed to load")
