@@ -1,0 +1,89 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+}
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        applicationId "com.theapache64.raven"
+        minSdkVersion 16
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        dataBinding true
+    }
+}
+
+dependencies {
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.3.1'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+
+    // Hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$androidx_hilt_version"
+    kapt "androidx.hilt:hilt-lifecycle-viewmodel:$androidx_hilt_version"
+    kapt "androidx.hilt:hilt-compiler:$androidx_hilt_version"
+
+    testImplementation 'junit:junit:4.13'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    // ViewPump : View inflation with pre/post-inflation interceptors
+    implementation 'io.github.inflationx:viewpump:2.0.3'
+
+    // Calligraphy : Custom Font injection through styles and attributes.
+    implementation 'io.github.inflationx:calligraphy3:3.1.1'
+
+    // Activity Kotlin Extensions : Kotlin extensions for 'activity' artifact
+    implementation 'androidx.activity:activity-ktx:1.2.0-alpha08'
+
+    // Retrosheet
+    implementation 'com.theapache64:retrosheet:1.2.1'
+
+    // Retrofit : A type-safe HTTP client for Android and Java.
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+
+    // Moshi : Moshi
+    implementation 'com.squareup.moshi:moshi:1.10.0'
+
+    // Converter: Moshi : A Retrofit Converter which uses Moshi for serialization.
+    implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
+
+    // Moshi Kotlin Codegen : Moshi Kotlin Codegen
+    kapt 'com.squareup.moshi:moshi-kotlin-codegen:1.10.0'
+
+	// Kotlinx Coroutines Core : Coroutines support libraries for Kotlin
+	implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.9'
+
+	// Timber : No-nonsense injectable logging.
+	implementation 'com.jakewharton.timber:timber:4.7.1'
+}

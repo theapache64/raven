@@ -1,0 +1,74 @@
+{
+ "added": [
+  {
+   "id": 1,
+   "type": "implementation",
+   "installed_name": "viewpump",
+   "gpm_dep": {
+    "artifact_id": "viewpump",
+    "default_type": "implementation",
+    "docs": "https://mvnrepository.com/artifact/io.github.inflationx/viewpump",
+    "get_from": "Central",
+    "group_id": "io.github.inflationx",
+    "name": "ViewPump",
+    "description": "View inflation with pre/post-inflation interceptors"
+   }
+  },
+  {
+   "id": 2,
+   "type": "implementation",
+   "installed_name": "calligraphy",
+   "gpm_dep": {
+    "artifact_id": "calligraphy3",
+    "default_type": "implementation",
+    "docs": "https://mvnrepository.com/artifact/io.github.inflationx/calligraphy3",
+    "get_from": "Central",
+    "group_id": "io.github.inflationx",
+    "name": "Calligraphy",
+    "description": "Custom Font injection through styles and attributes."
+   }
+  },
+  {
+   "id": 3,
+   "type": "implementation",
+   "installed_name": "androidx.activity",
+   "gpm_dep": {
+    "artifact_id": "activity-ktx",
+    "default_type": "implementation",
+    "docs": "https://mvnrepository.com/artifact/androidx.activity/activity-ktx",
+    "get_from": "Google",
+    "group_id": "androidx.activity",
+    "name": "Activity Kotlin Extensions",
+    "description": "Kotlin extensions for 'activity' artifact"
+   }
+  },
+  {
+   "id": 4,
+   "type": "implementation",
+   "installed_name": "coroutines",
+   "gpm_dep": {
+    "artifact_id": "kotlinx-coroutines-core",
+    "default_type": "implementation",
+    "docs": "https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-core",
+    "get_from": "Central",
+    "group_id": "org.jetbrains.kotlinx",
+    "name": "Kotlinx Coroutines Core",
+    "description": "Coroutines support libraries for Kotlin"
+   }
+  },
+  {
+   "id": 5,
+   "type": "implementation",
+   "installed_name": "timber",
+   "gpm_dep": {
+    "artifact_id": "timber",
+    "default_type": "implementation",
+    "docs": "https://mvnrepository.com/artifact/com.jakewharton.timber/timber",
+    "get_from": "Central",
+    "group_id": "com.jakewharton.timber",
+    "name": "Timber",
+    "description": "No-nonsense injectable logging."
+   }
+  }
+ ]
+}
