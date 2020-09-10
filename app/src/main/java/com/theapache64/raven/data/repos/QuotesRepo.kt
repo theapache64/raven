@@ -9,5 +9,6 @@ import javax.inject.Inject
 class QuotesRepo @Inject constructor(
     private val ravenApi: RavenApi
 ) {
-    fun getQuote(date: String) = ravenApi.getQuote(date)
+    fun getQuote(quoteId: String) = ravenApi.getQuote(quoteId)
+    fun getAllQuotes() = ravenApi.getAllQuotes()
 }

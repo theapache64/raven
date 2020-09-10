@@ -12,7 +12,12 @@ import retrofit2.http.Query
  */
 interface RavenApi {
 
-    @Read("SELECT * WHERE quote_date = :currentDate")
+    @Read("SELECT * WHERE quote_id = :quoteId")
     @GET(Config.SHEET_NAME_QUOTES)
-    fun getQuote(@Query("currentDate") currentDate: String): Flow<Resource<Quote>>
+    fun getQuote(@Query("quoteId") quoteId: String): Flow<Resource<Quote>>
+
+    @Read("SELECT *")
+    @GET(Config.SHEET_NAME_QUOTES)
+    fun getAllQuotes(): Flow<Resource<List<Quote>>>
+
 }

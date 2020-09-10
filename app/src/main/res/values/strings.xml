@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Raven</string>
+    <string name="action_generate">GENERATE</string>
+    <string name="action_set_wallpaper">SET WALLPAPER</string>
+    <string name="action_retry">RETRY</string>
+    <string name="any_loading">Loading...</string>
+    <string name="error_no_quote_selected">No quote selected</string>
+    <string name="main_wallpaper_set">Wallpaper Set!</string>
 </resources>

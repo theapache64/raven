@@ -37,7 +37,7 @@ object NetworkModule {
             .setLogging(true)
             .addSheet(
                 "quotes",
-                "quote_date", "quote"
+                "readable_date", "quote_id", "quote"
             )
             .build()
     }
