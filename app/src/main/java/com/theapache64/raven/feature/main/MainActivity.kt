@@ -3,7 +3,9 @@ package com.theapache64.raven.feature.main
 import android.annotation.SuppressLint
 import android.app.WallpaperManager
 import android.view.View
+import android.view.animation.AnimationUtils
 import androidx.activity.viewModels
+import androidx.core.view.postDelayed
 import com.theapache64.raven.R
 import com.theapache64.raven.databinding.ActivityMainBinding
 import com.theapache64.raven.feature.base.BaseActivity
@@ -41,6 +43,11 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
                     )
                     binding.ivQuote.setImageBitmap(bmp)
                     viewModel.bmp = bmp
+
+                    binding.ivQuote.postDelayed(2000) {
+                        val anim = AnimationUtils.loadAnimation(this, R.anim.fold_down)
+                        binding.ivQuote.startAnimation(anim)
+                    }
                 }
                 is Resource.Error -> {
                     Timber.e("onCreate: Quote failed to load : ${it.errorData}")
