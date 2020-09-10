@@ -83,6 +83,20 @@
     "name": "LiveData Kotlin Extensions",
     "description": "Kotlin extensions for 'livedata' artifact"
    }
+  },
+  {
+   "id": 7,
+   "type": "implementation",
+   "installed_name": "swiperefreshlayout",
+   "gpm_dep": {
+    "artifact_id": "swiperefreshlayout",
+    "default_type": "implementation",
+    "docs": "https://mvnrepository.com/artifact/androidx.swiperefreshlayout/swiperefreshlayout",
+    "get_from": "Google",
+    "group_id": "androidx.swiperefreshlayout",
+    "name": "Android Support Library Custom View",
+    "description": "The Support Library is a static library that you can add to your Android application in order to use APIs that are either not available for older platform versions or utility APIs that aren't a part of the framework APIs. Compatible on devices running API 14 or later."
+   }
   }
  ]
 }

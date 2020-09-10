@@ -97,4 +97,10 @@ dependencies {
 
 	// LiveData Kotlin Extensions : Kotlin extensions for 'livedata' artifact
 	implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.0-alpha07'
+
+	// Android Support Library Custom View : The Support Library is a static library that you can add to your Android application
+	// in order to use APIs that are either not available for older platform versions or
+	// utility APIs that aren't a part of the framework APIs. Compatible on devices running
+	// API 14 or later.
+	implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01'
 }

@@ -6,4 +6,5 @@
     <string name="any_loading">Loading...</string>
     <string name="error_no_quote_selected">No quote selected</string>
     <string name="main_wallpaper_set">Wallpaper Set!</string>
+    <string name="main_setting_wallpaper">Setting wallpaper...</string>
 </resources>

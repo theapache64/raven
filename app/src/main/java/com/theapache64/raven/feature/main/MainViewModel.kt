@@ -23,7 +23,7 @@ class MainViewModel @ViewModelInject constructor(
     var bmp: Bitmap? = null
     private val _shouldSetWallpaper = SingleLiveEvent<Boolean>()
     val shouldSetWallpaper: LiveData<Boolean> = _shouldSetWallpaper
-
+    private val shownQuotes = mutableSetOf<String>()
     private val _shouldGenerateQuote = MutableLiveData<String>()
     private var allQuotes: List<Quote>? = null
     val quote: LiveData<Resource<Quote>> = _shouldGenerateQuote.switchMap { type ->
@@ -48,6 +48,8 @@ class MainViewModel @ViewModelInject constructor(
                                 is Resource.Success -> {
                                     allQuotes = it.data.filter { it.quote.isNotBlank() }
                                     val currentQuote = allQuotes!!.random()
+                                    shownQuotes.clear()
+                                    shownQuotes.add(currentQuote.quoteId)
                                     emit(Resource.Success(null, currentQuote))
                                 }
                                 is Resource.Error -> {
@@ -58,7 +60,8 @@ class MainViewModel @ViewModelInject constructor(
                 } else {
                     Timber.d("Getting quote from cache: ")
                     emit(Resource.Loading())
-                    val currentQuote = allQuotes!!.random()
+                    val currentQuote = getRandomQuote()
+                    shownQuotes.add(currentQuote.quoteId)
                     emit(Resource.Success(null, currentQuote))
                 }
 
@@ -66,11 +69,25 @@ class MainViewModel @ViewModelInject constructor(
         }
     }
 
+    private fun getRandomQuote(): Quote {
+        val quote = allQuotes!!.random()
+
+        if (shownQuotes.size == allQuotes!!.size) {
+            // full
+            shownQuotes.clear()
+        }
+        return if (shownQuotes.contains(quote.quoteId)) {
+            getRandomQuote()
+        } else {
+            quote
+        }
+    }
+
     init {
         _shouldGenerateQuote.value = QuoteUtils.TYPE_TODAY
     }
 
-    fun onGenerateClicked() {
+    fun onSwipedToRefresh() {
         _shouldGenerateQuote.value = QuoteUtils.TYPE_RANDOM
     }
 
