@@ -103,4 +103,12 @@ dependencies {
 	// utility APIs that aren't a part of the framework APIs. Compatible on devices running
 	// API 14 or later.
 	implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01'
+
+	// Expekt : An assertion library for Kotlin
+	testImplementation 'com.theapache64:expekt:0.0.1'
+
+	// Core : Core
+	implementation 'com.afollestad.material-dialogs:core:3.3.0'
+    implementation 'com.afollestad.material-dialogs:input:3.3.0'
+
 }

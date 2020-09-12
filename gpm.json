@@ -97,6 +97,34 @@
     "name": "Android Support Library Custom View",
     "description": "The Support Library is a static library that you can add to your Android application in order to use APIs that are either not available for older platform versions or utility APIs that aren't a part of the framework APIs. Compatible on devices running API 14 or later."
    }
+  },
+  {
+   "id": 8,
+   "type": "testImplementation",
+   "installed_name": "expekt",
+   "gpm_dep": {
+    "artifact_id": "expekt",
+    "default_type": "implementation",
+    "docs": "https://mvnrepository.com/artifact/com.theapache64/expekt",
+    "get_from": "JCenter",
+    "group_id": "com.theapache64",
+    "name": "Expekt",
+    "description": "An assertion library for Kotlin"
+   }
+  },
+  {
+   "id": 9,
+   "type": "implementation",
+   "installed_name": "material-dialogs",
+   "gpm_dep": {
+    "artifact_id": "core",
+    "default_type": "implementation",
+    "docs": "https://mvnrepository.com/artifact/com.afollestad.material-dialogs/core",
+    "get_from": "Spring Lib Release",
+    "group_id": "com.afollestad.material-dialogs",
+    "name": "Core",
+    "description": "Core"
+   }
   }
  ]
 }

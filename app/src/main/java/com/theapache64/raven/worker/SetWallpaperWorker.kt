@@ -41,7 +41,13 @@ class SetWallpaperWorker @WorkerInject constructor(
                         }
                         is Resource.Success -> {
                             Timber.d("doWork: Quote has loaded: $it")
-                            val bitmap = DrawUtils.draw(context, it.data.quote)
+                            val bitmap =
+                                DrawUtils.draw(
+                                    context,
+                                    DrawUtils.DEFAULT_FONT_SIZE,
+                                    it.data.quote,
+                                    DrawUtils.RANDOM_FONTS.list.first()
+                                )
                             WallpaperManager.getInstance(context)
                                 .setBitmap(bitmap)
                         }

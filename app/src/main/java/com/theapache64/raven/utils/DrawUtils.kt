@@ -13,7 +13,21 @@ import android.text.TextPaint
  */
 object DrawUtils {
 
-    fun draw(context: Context, text: String): Bitmap {
+    const val DEFAULT_FONT_SIZE = 30f
+    val RANDOM_FONTS = arrayOf(
+        "GoogleSans-Regular.ttf",
+        "LemonJellyPersonalUse-dEqR.ttf",
+        "QuiteMagicalRegular-8VA2.ttf",
+        "BeautifulPeoplePersonalUse-PYP2.ttf",
+        "Countryside-YdKj.ttf",
+        "VeganStylePersonalUse-5Y58.ttf",
+        "QuickKissPersonalUse-PxlZ.ttf",
+        "BeautifulPeoplePersonalUse-dE0g.ttf",
+        "CountrysideTwo-r9WO.ttf",
+        "BeautyMountainsPersonalUse-od7z.ttf"
+    ).toList().toCycleList()
+
+    fun draw(context: Context,fontSize: Float, text: String, font: String): Bitmap {
         val dm = Resources.getSystem().displayMetrics
         val width = dm.widthPixels
         val height = dm.heightPixels
@@ -34,8 +48,8 @@ object DrawUtils {
         // new anti-aliased Paint
         val textPaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
             color = Color.WHITE
-            textSize = (30 * dm.density)
-            typeface = Typeface.createFromAsset(context.assets, "fonts/GoogleSans-Regular.ttf")
+            textSize = (fontSize * dm.density)
+            typeface = Typeface.createFromAsset(context.assets, "fonts/$font")
         }
 
         // set text width to canvas width minus 16dp padding
