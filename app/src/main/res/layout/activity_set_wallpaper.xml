@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.theapache64.raven.feature.main.MainViewModel" />
+            type="com.theapache64.raven.feature.wallpaper.SetWallpaperViewModel" />
     </data>
 
     <com.theapache64.raven.ui.widgets.CustomSwipeRefreshLayout
@@ -18,7 +18,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".feature.main.MainActivity">
+            tools:context=".feature.wallpaper.SetWallpaperActivity">
 
 
             <ImageView

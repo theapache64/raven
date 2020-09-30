@@ -51,7 +51,7 @@ class App : Application(), Configuration.Provider {
         WorkManager.getInstance(this)
             .enqueueUniquePeriodicWork(
                 SetWallpaperWorker::class.java.name,
-                ExistingPeriodicWorkPolicy.REPLACE,
+                ExistingPeriodicWorkPolicy.KEEP,
                 work
             )
 

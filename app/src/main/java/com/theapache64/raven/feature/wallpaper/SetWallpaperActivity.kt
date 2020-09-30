@@ -1,4 +1,4 @@
-package com.theapache64.raven.feature.main
+package com.theapache64.raven.feature.wallpaper
 
 import android.annotation.SuppressLint
 import android.app.WallpaperManager
@@ -9,7 +9,7 @@ import androidx.activity.viewModels
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.input.input
 import com.theapache64.raven.R
-import com.theapache64.raven.databinding.ActivityMainBinding
+import com.theapache64.raven.databinding.ActivitySetWallpaperBinding
 import com.theapache64.raven.feature.base.BaseActivity
 import com.theapache64.raven.utils.DrawUtils
 import com.theapache64.raven.utils.calladapter.flow.Resource
@@ -21,8 +21,8 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 
 @AndroidEntryPoint
-class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.activity_main) {
-    override val viewModel: MainViewModel by viewModels()
+class SetWallpaperActivity : BaseActivity<ActivitySetWallpaperBinding, SetWallpaperViewModel>(R.layout.activity_set_wallpaper) {
+    override val viewModel: SetWallpaperViewModel by viewModels()
 
     @SuppressLint("SetTextI18n")
     override fun onCreate() {
@@ -55,7 +55,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
                         viewModel.bmp = bmp
 
                         val enterAnim =
-                            AnimationUtils.loadAnimation(this@MainActivity, R.anim.quote_enter)
+                            AnimationUtils.loadAnimation(this@SetWallpaperActivity, R.anim.quote_enter)
                         binding.ivQuote.startAnimation(enterAnim)
                     }
 
@@ -101,7 +101,7 @@ class MainActivity : BaseActivity<ActivityMainBinding, MainViewModel>(R.layout.a
         viewModel.shouldSetWallpaper.observe(this, {
             binding.lvMain.showLoading(R.string.main_setting_wallpaper)
             GlobalScope.launch {
-                WallpaperManager.getInstance(this@MainActivity)
+                WallpaperManager.getInstance(this@SetWallpaperActivity)
                     .setBitmap(viewModel.bmp)
 
                 runOnUiThread {

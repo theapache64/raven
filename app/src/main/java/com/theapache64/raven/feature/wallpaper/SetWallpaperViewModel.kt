@@ -1,4 +1,4 @@
-package com.theapache64.raven.feature.main
+package com.theapache64.raven.feature.wallpaper
 
 import android.graphics.Bitmap
 import androidx.hilt.lifecycle.ViewModelInject
@@ -18,7 +18,7 @@ import timber.log.Timber
 /**
  * Created by theapache64 : Sep 09 Wed,2020 @ 21:57
  */
-class MainViewModel @ViewModelInject constructor(
+class SetWallpaperViewModel @ViewModelInject constructor(
     private val quotesRepo: QuotesRepo
 ) : BaseViewModel() {
 
@@ -141,7 +141,7 @@ class MainViewModel @ViewModelInject constructor(
     }
 
     fun onTextSubmit(input: String) {
-        currentQuote = Quote("", input)
+        currentQuote = Quote("", "", input)
         _shouldUpdateText.value = true
     }
 }

@@ -11,4 +11,5 @@
     <string name="hint_enter_text_here">Enter text here</string>
     <string name="dialog_title_text">Text</string>
     <string name="main_toast_default_font_set">Default font applied</string>
+    <string name="categories_loading_categories">Loading categories...</string>
 </resources>

@@ -20,4 +20,7 @@ interface RavenApi {
     @GET(Config.SHEET_NAME_QUOTES)
     fun getAllQuotes(): Flow<Resource<List<Quote>>>
 
+    @Read("SELECT * WHERE total_quotes > 0")
+    @GET(Config.SHEET_NAME_CATEGORIES)
+    fun getCategories(): Flow<Resource<List<Category>>>
 }

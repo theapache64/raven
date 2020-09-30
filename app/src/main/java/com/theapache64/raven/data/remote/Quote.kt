@@ -11,6 +11,8 @@ import com.squareup.moshi.JsonClass
 data class Quote(
     @Json(name = "quote_id")
     val quoteId: String,
+    @Json(name = "category")
+    val category: String,
     @Json(name = "quote")
     val quote: String
 )

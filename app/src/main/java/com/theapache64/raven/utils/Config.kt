@@ -5,4 +5,5 @@ package com.theapache64.raven.utils
  */
 object Config {
     const val SHEET_NAME_QUOTES = "quotes"
+    const val SHEET_NAME_CATEGORIES = "categories"
 }
