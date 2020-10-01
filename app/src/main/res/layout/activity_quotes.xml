@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.theapache64.raven.feature.quotes.QuotesViewModel" />
+    </data>
+
+    <com.theapache64.raven.ui.widgets.CustomSwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:onRefreshListener="@{()->viewModel.loadQuotes()}">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".feature.quotes.QuotesActivity">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_quotes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:listitem="@layout/item_category" />
+
+            <com.theapache64.raven.ui.widgets.LoadingView
+                android:id="@+id/lv_quotes"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:retryCallback="@{()-> viewModel.loadQuotes()}" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.theapache64.raven.ui.widgets.CustomSwipeRefreshLayout>
+</layout>

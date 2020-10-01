@@ -7,6 +7,7 @@ import com.theapache64.raven.R
 import com.theapache64.raven.data.remote.Quote
 import com.theapache64.raven.data.repos.QuotesRepo
 import com.theapache64.raven.feature.base.BaseViewModel
+import com.theapache64.raven.utils.DateUtils
 import com.theapache64.raven.utils.DrawUtils
 import com.theapache64.raven.utils.QuoteUtils
 import com.theapache64.raven.utils.calladapter.flow.Resource
@@ -141,7 +142,7 @@ class SetWallpaperViewModel @ViewModelInject constructor(
     }
 
     fun onTextSubmit(input: String) {
-        currentQuote = Quote("", "", input)
+        currentQuote = Quote(DateUtils.getToday(), "", "", input)
         _shouldUpdateText.value = true
     }
 }

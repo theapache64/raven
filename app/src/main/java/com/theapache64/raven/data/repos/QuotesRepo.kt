@@ -1,5 +1,6 @@
 package com.theapache64.raven.data.repos
 
+import com.theapache64.raven.data.remote.Category
 import com.theapache64.raven.data.remote.RavenApi
 import javax.inject.Inject
 
@@ -11,4 +12,5 @@ class QuotesRepo @Inject constructor(
 ) {
     fun getQuote(quoteId: String) = ravenApi.getQuote(quoteId)
     fun getAllQuotes() = ravenApi.getAllQuotes()
+    fun getQuotes(category: Category) = ravenApi.getQuotes(category.title)
 }

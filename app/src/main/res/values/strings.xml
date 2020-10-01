@@ -3,13 +3,14 @@
     <string name="action_generate">GENERATE</string>
     <string name="action_set_wallpaper">SET WALLPAPER</string>
     <string name="action_retry">RETRY</string>
-    <string name="any_loading">Loading...</string>
+    <string name="any_loading">Loading…</string>
     <string name="error_no_quote_selected">No quote selected</string>
     <string name="main_wallpaper_set">Wallpaper Set!</string>
-    <string name="main_setting_wallpaper">Setting wallpaper...</string>
+    <string name="main_setting_wallpaper">Setting wallpaper…</string>
     <string name="action_done">DONE</string>
     <string name="hint_enter_text_here">Enter text here</string>
     <string name="dialog_title_text">Text</string>
     <string name="main_toast_default_font_set">Default font applied</string>
-    <string name="categories_loading_categories">Loading categories...</string>
+    <string name="categories_loading">Loading categories…</string>
+    <string name="quotes_loading">Loading %s quotes…</string>
 </resources>
