@@ -10,112 +10,77 @@
             type="com.theapache64.raven.feature.wallpaper.SetWallpaperViewModel" />
     </data>
 
-    <com.theapache64.raven.ui.widgets.CustomSwipeRefreshLayout
-        android:id="@+id/csrl_main"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".feature.wallpaper.SetWallpaperActivity">
+        android:layout_height="match_parent"
+        tools:context=".feature.wallpaper.SetWallpaperActivity">
 
 
-            <ImageView
-                android:id="@+id/iv_quote"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:onClick="@{()->viewModel.onQuoteClicked()}"
-                android:scaleType="centerCrop"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@tools:sample/backgrounds/scenic" />
+        <ImageView
+            android:id="@+id/iv_quote"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/backgrounds/scenic" />
 
-            <com.google.android.material.slider.RangeSlider
-                android:id="@+id/rs_font_size"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:valueFrom="10"
-                android:valueTo="130"
-                app:layout_constraintBottom_toTopOf="@id/ib_left"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:thumbColor="@android:color/white"
-                app:trackColor="#79FFFFFF"
-                app:trackColorActive="@android:color/white" />
-
-            <!--Left-->
-            <ImageButton
-                android:id="@+id/ib_left"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:background="?android:attr/selectableItemBackground"
-                android:onClick="@{()->viewModel.onLeftClicked()}"
-                android:padding="10dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_left"
-                android:tint="@android:color/white"
-                app:layout_constraintBottom_toTopOf="@id/b_set_wallpaper"
-                app:layout_constraintStart_toStartOf="@id/b_set_wallpaper" />
+        <com.google.android.material.slider.RangeSlider
+            android:id="@+id/rs_font_size"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:valueFrom="10"
+            android:valueTo="130"
+            app:layout_constraintBottom_toTopOf="@id/ib_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:thumbColor="@android:color/white"
+            app:trackColor="#79FFFFFF"
+            app:trackColorActive="@android:color/white" />
 
 
-            <!--Right-->
-            <ImageButton
-                android:id="@+id/ib_right"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:background="?android:attr/selectableItemBackground"
-                android:onClick="@{()->viewModel.onRightClicked()}"
-                android:padding="10dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_right"
-                android:tint="@android:color/white"
-                app:layout_constraintBottom_toTopOf="@id/b_set_wallpaper"
-                app:layout_constraintEnd_toEndOf="@id/b_set_wallpaper" />
+        <!--Text-->
+        <ImageButton
+            android:id="@+id/ib_text"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:onClick="@{()->viewModel.onTextToolClicked()}"
+            android:padding="20dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_text"
+            android:tint="@android:color/white"
+            app:layout_constraintBottom_toTopOf="@id/b_set_wallpaper"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <!--Text-->
-            <ImageButton
-                android:onClick="@{()->viewModel.onTextToolClicked()}"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:background="?android:attr/selectableItemBackground"
-                android:padding="20dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/ic_text"
-                android:tint="@android:color/white"
-                app:layout_constraintBottom_toTopOf="@id/b_set_wallpaper"
-                app:layout_constraintEnd_toStartOf="@id/ib_left"
-                app:layout_constraintStart_toEndOf="@id/ib_right" />
+        <!--Set Wallpaper-->
+        <Button
+            android:id="@+id/b_set_wallpaper"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="10dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:onClick="@{()->viewModel.onSetWallpaperClicked()}"
+            android:text="@string/action_set_wallpaper"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <!--Set Wallpaper-->
-            <Button
-                android:id="@+id/b_set_wallpaper"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="?android:attr/selectableItemBackground"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="10dp"
-                android:onClick="@{()->viewModel.onSetWallpaperClicked()}"
-                android:text="@string/action_set_wallpaper"
-                android:textColor="@android:color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+        <com.theapache64.raven.ui.widgets.LoadingView
+            android:id="@+id/lv_main"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@android:color/black"
+            app:layout_constraintBottom_toTopOf="@id/b_set_wallpaper"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <com.theapache64.raven.ui.widgets.LoadingView
-                android:id="@+id/lv_main"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@android:color/black"
-                app:layout_constraintBottom_toTopOf="@id/b_set_wallpaper"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.theapache64.raven.ui.widgets.CustomSwipeRefreshLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

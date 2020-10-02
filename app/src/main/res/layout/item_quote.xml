@@ -16,14 +16,14 @@
         android:layout_margin="8dp"
         app:cardBackgroundColor="@color/grey_900"
         app:cardCornerRadius="8dp"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
         app:cardUseCompatPadding="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?android:attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
             android:padding="16dp">
 
             <TextView

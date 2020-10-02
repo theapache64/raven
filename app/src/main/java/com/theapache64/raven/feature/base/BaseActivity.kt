@@ -89,9 +89,12 @@ abstract class BaseActivity<B : ViewDataBinding, VM : BaseViewModel>(
     @Throws(IllegalArgumentException::class)
     protected inline fun <reified T : Parcelable> getParcelableOrThrow(key: String): T {
 
-        return intent.getParcelableExtra(key)
+        return getParcelable(key)
             ?: throw IllegalArgumentException("No parcelable found with key '$key'")
     }
 
+    protected inline fun <reified T : Parcelable> getParcelable(key: String): T? {
+        return intent.getParcelableExtra(key)
+    }
 
 }

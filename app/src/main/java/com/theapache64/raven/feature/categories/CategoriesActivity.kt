@@ -1,11 +1,13 @@
 package com.theapache64.raven.feature.categories
 
 import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import com.theapache64.raven.R
 import com.theapache64.raven.data.remote.Category
 import com.theapache64.raven.databinding.ActivityCategoriesBinding
 import com.theapache64.raven.feature.base.BaseActivity
 import com.theapache64.raven.feature.quotes.QuotesActivity
+import com.theapache64.raven.feature.wallpaper.SetWallpaperActivity
 import com.theapache64.raven.utils.calladapter.flow.Resource
 import com.theapache64.raven.utils.extensions.gone
 import com.theapache64.raven.utils.extensions.visible
@@ -44,6 +46,12 @@ class CategoriesActivity :
                 }
             }
 
+        })
+
+        viewModel.shouldLaunchSetWallpaper.observe(this, Observer {
+            if (it) {
+                startActivity(SetWallpaperActivity.getStartIntent(this, null))
+            }
         })
     }
 

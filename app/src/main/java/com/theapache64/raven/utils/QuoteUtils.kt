@@ -8,6 +8,7 @@ import java.util.*
  */
 object QuoteUtils {
     const val TYPE_TODAY = "today"
+    const val TYPE_GIVEN = "given"
     const val TYPE_RANDOM = "random"
 
     fun getQuoteIdToday(): String {

@@ -8,6 +8,7 @@ import com.theapache64.raven.R
 import com.theapache64.raven.data.remote.Category
 import com.theapache64.raven.databinding.ActivityQuotesBinding
 import com.theapache64.raven.feature.base.BaseActivity
+import com.theapache64.raven.feature.wallpaper.SetWallpaperActivity
 import com.theapache64.raven.utils.calladapter.flow.Resource
 import com.theapache64.raven.utils.extensions.invisible
 import com.theapache64.raven.utils.extensions.visible
@@ -46,15 +47,20 @@ class QuotesActivity :
                 is Resource.Success -> {
                     binding.lvQuotes.hideLoading()
                     val quotes = it.data.reversed()
+
+                    // Setting adapter
                     binding.rvQuotes.adapter = QuotesAdapter(
                         this,
                         quotes
-                    ) {
-                        // TODO : Launch wallpaper activity here
+                    ) { position ->
+                        val quote = quotes[position]
+                        startActivity(SetWallpaperActivity.getStartIntent(this, quote))
                     }
                     binding.rvQuotes.visible()
                 }
-                is Resource.Error -> TODO()
+                is Resource.Error -> {
+                    binding.lvQuotes.showError(it.errorData)
+                }
             }
         })
     }

@@ -2,6 +2,8 @@ package com.theapache64.raven.feature.wallpaper
 
 import android.annotation.SuppressLint
 import android.app.WallpaperManager
+import android.content.Context
+import android.content.Intent
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -9,9 +11,11 @@ import androidx.activity.viewModels
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.input.input
 import com.theapache64.raven.R
+import com.theapache64.raven.data.remote.Quote
 import com.theapache64.raven.databinding.ActivitySetWallpaperBinding
 import com.theapache64.raven.feature.base.BaseActivity
 import com.theapache64.raven.utils.DrawUtils
+import com.theapache64.raven.utils.OnSwipeTouchListener
 import com.theapache64.raven.utils.calladapter.flow.Resource
 import com.theapache64.raven.utils.extensions.snackBar
 import com.theapache64.raven.utils.extensions.toast
@@ -22,12 +26,26 @@ import timber.log.Timber
 
 @AndroidEntryPoint
 class SetWallpaperActivity : BaseActivity<ActivitySetWallpaperBinding, SetWallpaperViewModel>(R.layout.activity_set_wallpaper) {
+
+    companion object {
+        private const val KEY_QUOTE = "quote"
+        fun getStartIntent(context: Context, quote: Quote?): Intent {
+            return Intent(context, SetWallpaperActivity::class.java).apply {
+                // data goes here
+                putExtra(KEY_QUOTE, quote)
+            }
+        }
+    }
+
     override val viewModel: SetWallpaperViewModel by viewModels()
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "ClickableViewAccessibility")
     override fun onCreate() {
         binding.rsFontSize.setValues(DrawUtils.DEFAULT_FONT_SIZE)
         binding.viewModel = viewModel
+
+        val quote = getParcelable<Quote>(KEY_QUOTE)
+        viewModel.init(quote)
 
         viewModel.quote.observe(this, {
             when (it) {
@@ -55,7 +73,10 @@ class SetWallpaperActivity : BaseActivity<ActivitySetWallpaperBinding, SetWallpa
                         viewModel.bmp = bmp
 
                         val enterAnim =
-                            AnimationUtils.loadAnimation(this@SetWallpaperActivity, R.anim.quote_enter)
+                            AnimationUtils.loadAnimation(
+                                this@SetWallpaperActivity,
+                                R.anim.quote_enter
+                            )
                         binding.ivQuote.startAnimation(enterAnim)
                     }
 
@@ -69,11 +90,34 @@ class SetWallpaperActivity : BaseActivity<ActivitySetWallpaperBinding, SetWallpa
 
         })
 
+
+        binding.ivQuote.setOnTouchListener(object : OnSwipeTouchListener(this@SetWallpaperActivity) {
+            override fun onSwipeRight() {
+                Timber.d("onSwipeRight: Swiped right")
+                viewModel.onSwipeRight()
+            }
+
+            override fun onSwipeTop() {
+                viewModel.onSwipeTop()
+            }
+
+            override fun onSwipeLeft() {
+                Timber.d("onSwipeLeft: Swiped left")
+                viewModel.onSwipeLeft()
+            }
+
+            override fun onSwipeBottom() {
+                Timber.d("onSwipeBottom: Swiped down")
+                viewModel.onSwipedToRefresh()
+            }
+        })
+
         viewModel.shouldShowInputDialog.observe(this, {
             MaterialDialog(this).show {
                 title(R.string.dialog_title_text)
                 input(
                     allowEmpty = false,
+                    prefill = viewModel.currentQuote?.quote,
                     hintRes = R.string.hint_enter_text_here,
                 ) { _: MaterialDialog, input: CharSequence ->
                     viewModel.onTextSubmit(input.toString())
@@ -93,10 +137,6 @@ class SetWallpaperActivity : BaseActivity<ActivitySetWallpaperBinding, SetWallpa
         viewModel.shouldChangeFont.observe(this, {
             updateQuote()
         })
-
-        binding.csrlMain.setOnRefreshListener {
-            viewModel.onSwipedToRefresh()
-        }
 
         viewModel.shouldSetWallpaper.observe(this, {
             binding.lvMain.showLoading(R.string.main_setting_wallpaper)

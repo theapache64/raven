@@ -23,6 +23,7 @@ class SetWallpaperViewModel @ViewModelInject constructor(
     private val quotesRepo: QuotesRepo
 ) : BaseViewModel() {
 
+    private var givenQuote: Quote? = null
     var currentQuote: Quote? = null
 
     var bmp: Bitmap? = null
@@ -44,50 +45,58 @@ class SetWallpaperViewModel @ViewModelInject constructor(
     val shouldUpdateText: LiveData<Boolean> = _shouldUpdateText
 
     val quote: LiveData<Resource<Quote>> = _shouldGenerateQuote.switchMap { type ->
-        if (type == QuoteUtils.TYPE_TODAY) {
-            // get today quote
-            val todayQuoteId = QuoteUtils.getQuoteIdToday()
-            quotesRepo.getQuote(todayQuoteId)
-                .onEach {
-                    if (it is Resource.Success) {
-                        currentQuote = it.data
+        when (type) {
+            QuoteUtils.TYPE_TODAY -> {
+                // get today quote
+                val todayQuoteId = QuoteUtils.getQuoteIdToday()
+                quotesRepo.getQuote(todayQuoteId)
+                    .onEach {
+                        if (it is Resource.Success) {
+                            currentQuote = it.data
+                        }
                     }
-                }
-                .asLiveData(viewModelScope.coroutineContext)
+                    .asLiveData(viewModelScope.coroutineContext)
 
-        } else {
-            // get random quote
-            liveData<Resource<Quote>> {
+            }
 
-                if (allQuotes == null) {
-                    Timber.d("Getting quote from network: ")
-                    quotesRepo.getAllQuotes()
-                        .collect { it ->
-                            when (it) {
-                                is Resource.Loading -> {
-                                    // do nothing
-                                    emit(Resource.Loading())
-                                }
-                                is Resource.Success -> {
-                                    allQuotes = it.data.filter { it.quote.isNotBlank() }
-                                    currentQuote = allQuotes!!.random()
-                                    shownQuotes.clear()
-                                    shownQuotes.add(currentQuote!!.quoteId)
-                                    emit(Resource.Success(null, currentQuote!!))
-                                }
-                                is Resource.Error -> {
-                                    emit(Resource.Error(it.errorData))
+            QuoteUtils.TYPE_GIVEN -> {
+                currentQuote = givenQuote
+                MutableLiveData(Resource.Success(null, givenQuote!!))
+            }
+            else -> {
+                // get random quote
+                liveData<Resource<Quote>> {
+
+                    if (allQuotes == null) {
+                        Timber.d("Getting quote from network: ")
+                        quotesRepo.getAllQuotes()
+                            .collect { it ->
+                                when (it) {
+                                    is Resource.Loading -> {
+                                        // do nothing
+                                        emit(Resource.Loading())
+                                    }
+                                    is Resource.Success -> {
+                                        allQuotes = it.data.filter { it.quote.isNotBlank() }
+                                        currentQuote = allQuotes!!.random()
+                                        shownQuotes.clear()
+                                        shownQuotes.add(currentQuote!!.quoteId)
+                                        emit(Resource.Success(null, currentQuote!!))
+                                    }
+                                    is Resource.Error -> {
+                                        emit(Resource.Error(it.errorData))
+                                    }
                                 }
                             }
-                        }
-                } else {
-                    Timber.d("Getting quote from cache: ")
-                    emit(Resource.Loading())
-                    currentQuote = getRandomQuote()
-                    shownQuotes.add(currentQuote!!.quoteId)
-                    emit(Resource.Success(null, currentQuote!!))
-                }
+                    } else {
+                        Timber.d("Getting quote from cache: ")
+                        emit(Resource.Loading())
+                        currentQuote = getRandomQuote()
+                        shownQuotes.add(currentQuote!!.quoteId)
+                        emit(Resource.Success(null, currentQuote!!))
+                    }
 
+                }
             }
         }
     }
@@ -106,9 +115,17 @@ class SetWallpaperViewModel @ViewModelInject constructor(
         }
     }
 
-    init {
-        _shouldGenerateQuote.value = QuoteUtils.TYPE_TODAY
+    fun init(quote: Quote?) {
+        if (quote == null) {
+            // Load today's quote
+            _shouldGenerateQuote.value = QuoteUtils.TYPE_TODAY
+        } else {
+            // Load given quote
+            givenQuote = quote
+            _shouldGenerateQuote.value = QuoteUtils.TYPE_GIVEN
+        }
     }
+
 
     fun onSwipedToRefresh() {
         _shouldGenerateQuote.value = QuoteUtils.TYPE_RANDOM
@@ -122,15 +139,15 @@ class SetWallpaperViewModel @ViewModelInject constructor(
         }
     }
 
-    fun onQuoteClicked() {
+    fun onSwipeTop() {
         _shouldShowInputDialog.value = true
     }
 
-    fun onLeftClicked() {
+    fun onSwipeLeft() {
         _shouldChangeFont.value = DrawUtils.RANDOM_FONTS.prev()
     }
 
-    fun onRightClicked() {
+    fun onSwipeRight() {
         _shouldChangeFont.value = DrawUtils.RANDOM_FONTS.next()
     }
 
@@ -145,4 +162,6 @@ class SetWallpaperViewModel @ViewModelInject constructor(
         currentQuote = Quote(DateUtils.getToday(), "", "", input)
         _shouldUpdateText.value = true
     }
+
+
 }
