@@ -4,10 +4,14 @@ import android.annotation.SuppressLint
 import android.app.WallpaperManager
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.net.Uri
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.activity.viewModels
+import androidx.core.content.FileProvider
+import androidx.lifecycle.Observer
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.input.input
 import com.theapache64.raven.R
@@ -17,17 +21,26 @@ import com.theapache64.raven.feature.base.BaseActivity
 import com.theapache64.raven.utils.DrawUtils
 import com.theapache64.raven.utils.OnSwipeTouchListener
 import com.theapache64.raven.utils.calladapter.flow.Resource
+import com.theapache64.raven.utils.extensions.invisible
 import com.theapache64.raven.utils.extensions.snackBar
 import com.theapache64.raven.utils.extensions.toast
+import com.theapache64.raven.utils.extensions.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+
 
 @AndroidEntryPoint
-class SetWallpaperActivity : BaseActivity<ActivitySetWallpaperBinding, SetWallpaperViewModel>(R.layout.activity_set_wallpaper) {
+class SetWallpaperActivity :
+    BaseActivity<ActivitySetWallpaperBinding, SetWallpaperViewModel>(R.layout.activity_set_wallpaper) {
 
     companion object {
+        private const val SHARE_TEXT =
+            "by @RobinSharma. Shared via @Raven\n\nCheckout : https://github.com/theapache64/raven"
         private const val KEY_QUOTE = "quote"
         fun getStartIntent(context: Context, quote: Quote?): Intent {
             return Intent(context, SetWallpaperActivity::class.java).apply {
@@ -91,7 +104,8 @@ class SetWallpaperActivity : BaseActivity<ActivitySetWallpaperBinding, SetWallpa
         })
 
 
-        binding.ivQuote.setOnTouchListener(object : OnSwipeTouchListener(this@SetWallpaperActivity) {
+        binding.ivQuote.setOnTouchListener(object :
+            OnSwipeTouchListener(this@SetWallpaperActivity) {
             override fun onSwipeRight() {
                 Timber.d("onSwipeRight: Swiped right")
                 viewModel.onSwipeRight()
@@ -140,6 +154,7 @@ class SetWallpaperActivity : BaseActivity<ActivitySetWallpaperBinding, SetWallpa
 
         viewModel.shouldSetWallpaper.observe(this, {
             binding.lvMain.showLoading(R.string.main_setting_wallpaper)
+            binding.ivQuote.invisible()
             GlobalScope.launch {
                 WallpaperManager.getInstance(this@SetWallpaperActivity)
                     .setBitmap(viewModel.bmp)
@@ -147,9 +162,49 @@ class SetWallpaperActivity : BaseActivity<ActivitySetWallpaperBinding, SetWallpa
                 runOnUiThread {
                     binding.bSetWallpaper.snackBar(R.string.main_wallpaper_set)
                     binding.lvMain.hideLoading()
+                    binding.ivQuote.visible()
                 }
             }
         })
+
+        viewModel.shouldShare.observe(this, Observer {
+            if (it && viewModel.bmp != null) {
+                val uri = saveImage(viewModel.bmp!!)
+                if (uri != null) {
+                    shareImageUri(uri)
+                } else {
+                    viewModel.onFailedToShare()
+                }
+            }
+        })
+    }
+
+    private fun shareImageUri(uri: Uri) {
+        val intent = Intent(Intent.ACTION_SEND).apply {
+            putExtra(Intent.EXTRA_TEXT, SHARE_TEXT)
+            putExtra(Intent.EXTRA_STREAM, uri)
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            type = "image/png"
+        }
+        startActivity(intent)
+    }
+
+    private fun saveImage(image: Bitmap): Uri? {
+        val imagesFolder = File(cacheDir, "images")
+        var uri: Uri? = null
+        try {
+            imagesFolder.mkdirs()
+            val file = File(imagesFolder, "shared_image.png")
+            val stream = FileOutputStream(file)
+            image.compress(Bitmap.CompressFormat.PNG, 90, stream)
+            stream.flush()
+            stream.close()
+            uri = FileProvider.getUriForFile(this, "com.theapache64.raven.fileprovider", file)
+        } catch (e: IOException) {
+            e.printStackTrace()
+            Timber.e("saveImage: IOException while trying to write file for sharing: ${e.message}")
+        }
+        return uri
     }
 
     private fun updateQuote() {

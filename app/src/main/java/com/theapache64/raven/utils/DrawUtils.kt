@@ -14,17 +14,17 @@ import android.text.TextPaint
 object DrawUtils {
 
     const val DEFAULT_FONT_SIZE = 30f
-    const val watermarkFont = "QuiteMagicalRegular-8VA2.ttf"
-
-    val veganStylePersonalUse = "VeganStylePersonalUse-5Y58.ttf"
+    private const val WATERMARK_FONT = "QuiteMagicalRegular-8VA2.ttf"
+    private const val FONT_VEGAN_STYLE = "VeganStylePersonalUse-5Y58.ttf"
+    private const val SIGNATURE = "- raven -"
 
     val RANDOM_FONTS = arrayOf(
         "GoogleSans-Regular.ttf",
         "LemonJellyPersonalUse-dEqR.ttf",
-        watermarkFont,
+        WATERMARK_FONT,
         "BeautifulPeoplePersonalUse-PYP2.ttf",
         "Countryside-YdKj.ttf",
-        veganStylePersonalUse,
+        FONT_VEGAN_STYLE,
         "QuickKissPersonalUse-PxlZ.ttf",
         "BeautifulPeoplePersonalUse-dE0g.ttf",
         "CountrysideTwo-r9WO.ttf",
@@ -32,7 +32,7 @@ object DrawUtils {
     ).toList().toCycleList()
 
     val CUSTOM_LINE_HEIGHTS = mapOf(
-        veganStylePersonalUse to 2f
+        FONT_VEGAN_STYLE to 2f
     )
 
     fun draw(context: Context, fontSize: Float, text: String, font: String): Bitmap {
@@ -80,12 +80,12 @@ object DrawUtils {
 
         val watermarkPaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
             color = Color.GRAY
-            textSize = ((fontSize / 2) * dm.density)
-            typeface = Typeface.createFromAsset(context.assets, "fonts/$watermarkFont")
+            textSize = ((fontSize * 0.75f) * dm.density)
+            typeface = Typeface.createFromAsset(context.assets, "fonts/$WATERMARK_FONT")
         }
 
         val watermarkText = StaticLayout(
-            "- raven -",
+            SIGNATURE,
             watermarkPaint,
             textWidth.toInt(),
             Layout.Alignment.ALIGN_CENTER,

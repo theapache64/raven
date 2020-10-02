@@ -152,7 +152,6 @@ class SetWallpaperViewModel @ViewModelInject constructor(
     }
 
 
-
     fun onTextToolClicked() {
         _shouldChangeFont.value = DrawUtils.RANDOM_FONTS.first()
         _toastMsg.value = R.string.main_toast_default_font_set
@@ -163,8 +162,14 @@ class SetWallpaperViewModel @ViewModelInject constructor(
         _shouldUpdateText.value = true
     }
 
-    fun onShareClicked(){
+    private val _shouldShare = SingleLiveEvent<Boolean>()
+    val shouldShare: LiveData<Boolean> = _shouldShare
+    fun onShareClicked() {
+        _shouldShare.value = true
+    }
 
+    fun onFailedToShare() {
+        _toastMsg.value = R.string.wallpaper_error_share_failed
     }
 
 
