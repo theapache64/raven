@@ -14,20 +14,28 @@ import android.text.TextPaint
 object DrawUtils {
 
     const val DEFAULT_FONT_SIZE = 30f
+    const val watermarkFont = "QuiteMagicalRegular-8VA2.ttf"
+
+    val veganStylePersonalUse = "VeganStylePersonalUse-5Y58.ttf"
+
     val RANDOM_FONTS = arrayOf(
         "GoogleSans-Regular.ttf",
         "LemonJellyPersonalUse-dEqR.ttf",
-        "QuiteMagicalRegular-8VA2.ttf",
+        watermarkFont,
         "BeautifulPeoplePersonalUse-PYP2.ttf",
         "Countryside-YdKj.ttf",
-        "VeganStylePersonalUse-5Y58.ttf",
+        veganStylePersonalUse,
         "QuickKissPersonalUse-PxlZ.ttf",
         "BeautifulPeoplePersonalUse-dE0g.ttf",
         "CountrysideTwo-r9WO.ttf",
         "BeautyMountainsPersonalUse-od7z.ttf"
     ).toList().toCycleList()
 
-    fun draw(context: Context,fontSize: Float, text: String, font: String): Bitmap {
+    val CUSTOM_LINE_HEIGHTS = mapOf(
+        veganStylePersonalUse to 2f
+    )
+
+    fun draw(context: Context, fontSize: Float, text: String, font: String): Bitmap {
         val dm = Resources.getSystem().displayMetrics
         val width = dm.widthPixels
         val height = dm.heightPixels
@@ -46,19 +54,39 @@ object DrawUtils {
         canvas.drawRect(0f, 0f, width.toFloat(), height.toFloat(), black)
 
         // new anti-aliased Paint
-        val textPaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
+        val mainTextPaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
             color = Color.WHITE
             textSize = (fontSize * dm.density)
             typeface = Typeface.createFromAsset(context.assets, "fonts/$font")
         }
 
+
         // set text width to canvas width minus 16dp padding
         val textWidth = canvas.width - (100 * dm.density)
 
+        val lineHeight = CUSTOM_LINE_HEIGHTS[font] ?: 1f
+
         // init StaticLayout for text
-        val textLayout = StaticLayout(
+        val mainText = StaticLayout(
             text,
-            textPaint,
+            mainTextPaint,
+            textWidth.toInt(),
+            Layout.Alignment.ALIGN_CENTER,
+            lineHeight,
+            0.0f,
+            true
+        )
+
+
+        val watermarkPaint = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
+            color = Color.GRAY
+            textSize = ((fontSize / 2) * dm.density)
+            typeface = Typeface.createFromAsset(context.assets, "fonts/$watermarkFont")
+        }
+
+        val watermarkText = StaticLayout(
+            "- raven -",
+            watermarkPaint,
             textWidth.toInt(),
             Layout.Alignment.ALIGN_CENTER,
             1.0f,
@@ -66,14 +94,20 @@ object DrawUtils {
             true
         )
 
-        val textHeight = textLayout.height
-        val x = (width - textWidth) / 2
-        val y = (height - textHeight) / 2
+        val textHeight = mainText.height
+        val cx = (width - textWidth) / 2
+        val cy = (height - textHeight) / 2
 
         canvas.save()
-        canvas.translate(x, y.toFloat())
-        textLayout.draw(canvas)
+        canvas.translate(cx, cy.toFloat())
+        mainText.draw(canvas)
         canvas.restore()
+
+        canvas.save()
+        canvas.translate(cx, height.toFloat() - 100)
+        watermarkText.draw(canvas)
+        canvas.restore()
+
 
         return bmp
     }

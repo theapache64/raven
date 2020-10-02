@@ -14,7 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Raven">
-        <activity android:name=".feature.quotes.QuotesActivity"></activity>
+        <activity
+            android:name=".feature.quotes.QuotesActivity"
+            android:exported="true" />
         <activity android:name=".feature.categories.CategoriesActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,7 +31,9 @@
             android:exported="false"
             tools:node="remove" />
 
-        <activity android:name=".feature.wallpaper.SetWallpaperActivity" />
+        <activity
+            android:name=".feature.wallpaper.SetWallpaperActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

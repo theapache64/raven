@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:background="?android:attr/selectableItemBackground"
                 android:onClick="@{()->viewModel.onSetWallpaperClicked()}"
-                android:padding="32dp"
+                android:padding="16dp"
                 android:src="@drawable/ic_baseline_format_quote_24"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

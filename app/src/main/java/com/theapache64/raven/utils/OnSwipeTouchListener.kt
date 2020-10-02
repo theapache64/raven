@@ -43,7 +43,7 @@ open class OnSwipeTouchListener(ctx: Context?) : OnTouchListener {
                         }
                         result = true
                     }
-                } else if (abs(diffY) > Companion.SWIPE_THRESHOLD && Math.abs(velocityY) > Companion.SWIPE_VELOCITY_THRESHOLD) {
+                } else if (abs(diffY) > Companion.SWIPE_THRESHOLD && abs(velocityY) > Companion.SWIPE_VELOCITY_THRESHOLD) {
                     if (diffY > 0) {
                         onSwipeBottom()
                     } else {
@@ -54,7 +54,7 @@ open class OnSwipeTouchListener(ctx: Context?) : OnTouchListener {
             } catch (exception: Exception) {
                 exception.printStackTrace()
             }
-            return false
+            return result
         }
 
 

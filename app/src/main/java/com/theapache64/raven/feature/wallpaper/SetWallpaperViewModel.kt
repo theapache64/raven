@@ -163,5 +163,9 @@ class SetWallpaperViewModel @ViewModelInject constructor(
         _shouldUpdateText.value = true
     }
 
+    fun onShareClicked(){
+
+    }
+
 
 }
