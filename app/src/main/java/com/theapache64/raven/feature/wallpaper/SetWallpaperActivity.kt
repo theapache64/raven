@@ -40,7 +40,7 @@ class SetWallpaperActivity :
 
     companion object {
         private const val SHARE_TEXT =
-            "by @RobinSharma. Shared via @Raven\n\nCheckout : https://github.com/theapache64/raven"
+            "#TMWSHF @RobinSharma\nShared via Raven\n\nCheckout : https://github.com/theapache64/raven #theapache64_raven"
         private const val KEY_QUOTE = "quote"
         fun getStartIntent(context: Context, quote: Quote?): Intent {
             return Intent(context, SetWallpaperActivity::class.java).apply {
