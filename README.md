@@ -4,6 +4,19 @@
 Raven is a wallpaper app, made with the collection of quotes from the books in The Monk Who Sold His Ferrari series.
 Raven is powered by [Retrosheet](https://github.com/theapache64/retrosheet) library. 
 
+## How does it work ?
+
+- Raven has a worker running 1 time a day. It'll collect the quote of the day and will automatically generate a wallpaper with that quote. 
+- You can browse through all the available quotes and categories using the app. 
+- You can also customize the wallpaper by simply pressing the `"` button. (top right - categories screen).
+ Below given some of the gestures and it's functionality in that screen.
+
+**Gestures**
+
+- Swipe down to get a random quote
+- Swipe left/right to change the font
+- Swipe up to write your own quote
+
 ## Download 
 
 - Raven is still in experimental stage. Bugs are expected.
@@ -12,7 +25,7 @@ Raven is powered by [Retrosheet](https://github.com/theapache64/retrosheet) libr
 
 ## Data Source
 
-- [Raven Public](https://docs.google.com/spreadsheets/d/1eDOjClNJGgrROftn9zW69WKNOnQVor_zrF8yo0v5KGs/edit?usp=sharing)
+- [Raven Public](https://docs.google.com/spreadsheets/d/1eDOjClNJGgrROftn9zW69WKNOnQVor_zrF8yo0v5KGs/edit?usp=sharing) *(last updated 24 hours ago)*
 
 ## TODO
 
