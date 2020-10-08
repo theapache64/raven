@@ -1,7 +1,8 @@
 # raven
 ![](montage.png)
 
-Raven is wallpaper app specially made with the collection of quotes from the books in The Monk Who Sold His Ferrari series. Raven is powered by [Retrosheet](https://github.com/theapache64/retrosheet) library. 
+Raven is wallpaper app, made with the collection of quotes from the books in The Monk Who Sold His Ferrari series.
+Raven is powered by [Retrosheet](https://github.com/theapache64/retrosheet) library. 
 
 ## Download
 
