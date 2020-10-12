@@ -32,6 +32,18 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <ImageButton
+                android:id="@+id/ib_toggle_auto_wallpaper"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:onClick="@{()->viewModel.onAutoWallpaperToggleClicked()}"
+                android:padding="16dp"
+                android:src="@{viewModel.isAutoWallpaperOn() ? @drawable/ic_on_24 : @drawable/ic_off_24}"
+                app:layout_constraintBottom_toBottomOf="@id/ib_set_wallpaper"
+                app:layout_constraintEnd_toStartOf="@id/ib_set_wallpaper"
+                app:layout_constraintTop_toTopOf="@id/ib_set_wallpaper" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_categories"
                 android:layout_width="0dp"
