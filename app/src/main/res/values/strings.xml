@@ -14,4 +14,6 @@
     <string name="categories_loading">Loading categories…</string>
     <string name="quotes_loading">Loading %s quotes…</string>
     <string name="wallpaper_error_share_failed">Failed to share image</string>
+    <string name="categories_auto_wallpaper_on">Auto Wallpaper : ON</string>
+    <string name="categories_auto_wallpaper_off">Auto Wallpaper : OFF</string>
 </resources>

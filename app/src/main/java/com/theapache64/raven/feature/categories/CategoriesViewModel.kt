@@ -2,6 +2,7 @@ package com.theapache64.raven.feature.categories
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
+import com.theapache64.raven.R
 import com.theapache64.raven.data.repos.CategoriesRepo
 import com.theapache64.raven.data.repos.PrefRepo
 import com.theapache64.raven.feature.base.BaseViewModel
@@ -43,6 +44,12 @@ class CategoriesViewModel @ViewModelInject constructor(
         val newState = isAutoWallpaperOn.value!!.not()
 
         prefRepo.storeIsAutoWallpaper(newState)
+
+        _toastMsg.value = if (newState) {
+            R.string.categories_auto_wallpaper_on
+        } else {
+            R.string.categories_auto_wallpaper_off
+        }
 
         // Update icon
         _isAutoWallpaper.value = newState
