@@ -21,6 +21,7 @@ class CategoriesActivity :
 
     override fun onCreate() {
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
         viewModel.categoriesResponse.observe(this, {
             when (it) {

@@ -6,6 +6,7 @@ import androidx.hilt.Assisted
 import androidx.hilt.work.WorkerInject
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
+import com.theapache64.raven.data.repos.PrefRepo
 import com.theapache64.raven.data.repos.QuotesRepo
 import com.theapache64.raven.utils.DrawUtils
 import com.theapache64.raven.utils.QuoteUtils
@@ -19,7 +20,8 @@ import timber.log.Timber
 class SetWallpaperWorker @WorkerInject constructor(
     @Assisted val context: Context,
     @Assisted workerParams: WorkerParameters,
-    private val quotesRepo: QuotesRepo
+    private val quotesRepo: QuotesRepo,
+    private val prefRepo: PrefRepo
 ) : CoroutineWorker(context, workerParams) {
 
     companion object {
@@ -29,10 +31,13 @@ class SetWallpaperWorker @WorkerInject constructor(
     override suspend fun doWork(): Result {
         var result: Result = Result.success()
 
+        if (prefRepo.isAutoWallpaperOn().not()) {
+            return result
+        }
+
         when (val type = inputData.getString(KEY_TYPE)) {
             QuoteUtils.TYPE_TODAY -> {
                 Timber.d("doWork: Type is today")
-
 
                 quotesRepo.getQuote(QuoteUtils.getQuoteIdToday()).collect {
                     when (it) {
