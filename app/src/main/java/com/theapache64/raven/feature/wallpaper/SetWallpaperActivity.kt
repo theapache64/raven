@@ -32,6 +32,7 @@ import timber.log.Timber
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.util.*
 
 
 @AndroidEntryPoint
@@ -40,7 +41,7 @@ class SetWallpaperActivity :
 
     companion object {
         private const val SHARE_TEXT =
-            "#TMWSHF @RobinSharma\nShared via Raven\n\nCheckout : https://github.com/theapache64/raven #theapache64_raven"
+            "Shared via Raven\n\nCheckout : https://github.com/theapache64/raven\n#TMWSHF #theapache64_raven"
         private const val KEY_QUOTE = "quote"
         fun getStartIntent(context: Context, quote: Quote?): Intent {
             return Intent(context, SetWallpaperActivity::class.java).apply {
@@ -181,7 +182,12 @@ class SetWallpaperActivity :
 
     private fun shareImageUri(uri: Uri) {
         val intent = Intent(Intent.ACTION_SEND).apply {
-            putExtra(Intent.EXTRA_TEXT, SHARE_TEXT)
+            putExtra(
+                Intent.EXTRA_TEXT,
+                "$SHARE_TEXT #theapache64_raven_${
+                    viewModel.currentQuote?.category?.toLowerCase(Locale.US)?.replace(" ", "_")
+                }"
+            )
             putExtra(Intent.EXTRA_STREAM, uri)
             addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             type = "image/png"
