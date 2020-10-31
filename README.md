@@ -25,6 +25,11 @@ Raven is powered by [Retrosheet](https://github.com/theapache64/retrosheet) libr
 
 <a href="https://play.google.com/store/apps/details?id=com.theapache64.raven"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" width="200px"/></a>
 
+## History
+
+- Twitter : [#theapache64_raven](https://twitter.com/hashtag/theapache64_raven?src=hashtag_click)
+- LinkedIn : [#theapache64_raven](https://www.linkedin.com/feed/hashtag/?keywords=theapache64_raven)
+
 ## Data Source
 
 - [Raven Public](https://docs.google.com/spreadsheets/d/1eDOjClNJGgrROftn9zW69WKNOnQVor_zrF8yo0v5KGs/edit?usp=sharing) *(last updated 24 hours ago)*
